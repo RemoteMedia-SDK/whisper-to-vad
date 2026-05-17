@@ -1,0 +1,24 @@
+# WhisperToVadNode as a standalone Path 3 cdylib plugin.
+#
+# Runs the trained ONNX regressor from
+# `tools/affect_calibration/artifacts/whisper_to_vad_{ridge,mlp}.onnx`
+# against incoming Whisper encoder hidden states and emits a per-input
+# `{valence, arousal, dominance, intensity}` JSON envelope.
+#
+# Consumer manifest reference:
+#
+#   "plugins": ["whisper-to-vad@v0.1.0"]
+#       (canonical-org shorthand → github.com/RemoteMedia-SDK/whisper-to-vad)
+#
+#   "plugins": ["./plugins/libwhisper_to_vad_plugin.so"]
+#       (local path)
+
+[plugin]
+name        = "whisper-to-vad"
+version     = "0.1.0"
+language    = "rust"
+description = "Whisper-embedding → V/A/D regressor (ONNX) — standalone Rust cdylib plugin"
+
+[rust]
+node_types    = ["WhisperToVadNode"]
+asset_pattern = "lib{name}-{arch}-{os}.{ext}"
